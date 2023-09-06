@@ -1,16 +1,17 @@
+import { Comment } from '@/__generated__/graphql';
 import React from 'react';
 
-const Comment = () => {
+const CommentComponent = ({comment} : {comment : Comment}) => {
   return (
     <div className='my-2'>
       <p className='flex flex-col'>
-        <span>Barack Obama</span>
-        <span className='text-xs my-2'>02 02 2001</span>
+        <span>{comment.author}</span>
+        <span className='text-xs my-2'>{comment.date}</span>
       </p>
-      <p>What a nice article</p>
+      <p>{comment.text}</p>
       <hr/>
     </div>
   );
 };
 
-export default Comment;
+export default CommentComponent;

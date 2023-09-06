@@ -1,0 +1,39 @@
+
+type Query{
+    allPosts: [Post]
+    post(id: ID) : Post
+}
+
+type Mutation{
+    addComment(commentInput: CommentInput): [Comment!]
+}
+
+input CommentInput {
+    author: String!,
+    date: String!,
+    text: String!,
+    postId: String!
+}
+
+interface Node{
+    id: ID!
+}
+
+type Post implements Node{
+    id: ID!,
+    title: String!,
+    date: String!,
+    text: String!,
+    comments: [Comment!],
+    amountOfLikes: Int!,
+    amountOfComments: Int!
+}
+
+type Comment implements Node{
+    id: ID!,
+    author: String!,
+    date: String!,
+    text: String!,
+    post: Post!
+}
+
