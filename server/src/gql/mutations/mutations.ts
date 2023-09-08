@@ -30,6 +30,20 @@ const mutationResolvers: MutationResolvers = {
             comments:
                 comment.Post.comments.map(commentModel => populateComment(commentModel, post))
         };
+    },
+
+
+    like: async (_, args, { dataSources }) => {
+
+        const postModel = await dataSources.postModelsDataSource.findPostModelById(args.postId);
+        const updatedAmountOfLikes = postModel.amountOfLikes + 1;
+        console.log(`post - ${args.postId} with likes ${updatedAmountOfLikes}`)
+        await dataSources.prisma.postModel.update({
+            where: { id: args.postId },
+            data: { amountOfLikes: { increment: 1 } }
+        })
+
+        return { likes: updatedAmountOfLikes };
     }
 };
 

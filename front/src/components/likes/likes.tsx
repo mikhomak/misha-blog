@@ -1,10 +1,22 @@
-import React from 'react';
-import styles from './Likes.module.css';
-import Link from 'next/link';
+"use client"
 
-const Likes = ({ amountOfLikes }: { amountOfLikes: number }) => {
+import React from 'react';
+import { gql, useMutation } from '@apollo/client';
+
+const ADD_LIKE = gql`mutation Like($postId: ID) {
+  like(postId: $postId) {
+    likes
+  }
+}`
+
+const Likes = ({ amountOfLikes, postId }: { amountOfLikes: number, postId: string }) => {
+  const [likePost, { data }] = useMutation(ADD_LIKE, {
+    variables: {
+      "postId": postId
+    }
+  })
   return (
-    <Link href="/blog/1/like">{amountOfLikes} likes</Link>
+    <button onClick={() => likePost()} disabled={data}>{data === undefined? amountOfLikes : data.like.likes} likes</button>
   );
 };
 

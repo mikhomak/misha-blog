@@ -42,7 +42,7 @@ export default async function Blog({ params }: { params: { id: string } }) {
       <div className="max-w-screen-lg my-4">
         <ReactMarkdown>{post.text}</ReactMarkdown>
         <hr />
-        <Likes amountOfLikes={post.amountOfLikes || 0} />
+        <Likes amountOfLikes={post.amountOfLikes || 0} postId={post.id}/>
         <CommentArea comments={post.comments || []} postId={post.id} />
       </div>
     )

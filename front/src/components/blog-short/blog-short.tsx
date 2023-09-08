@@ -15,7 +15,7 @@ const BlogShort = ({ post }: { post: Post }) => {
         <ReactMarkdown>{post.text}</ReactMarkdown>
       </p>
       <div className='space-x-4 mb-6'>
-        <Likes amountOfLikes={post.amountOfLikes || 0} />
+        <Likes amountOfLikes={post.amountOfLikes || 0} postId={post.id}/>
         <Link href={`/blog/${post.id}`}>{post.amountOfComments} Comments</Link>
       </div>
     </div >

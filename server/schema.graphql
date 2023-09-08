@@ -6,10 +6,15 @@ type Query{
 
 type Mutation{
     addComment(commentInput: CommentInput): CommentCreatedResponse!
+    like(postId: ID): LikeResponse!
 }
 
 type CommentCreatedResponse{
     comments: [Comment!]
+}
+
+type LikeResponse{
+    likes: Int
 }
 
 input CommentInput {
@@ -39,4 +44,3 @@ type Comment implements Node {
     text: String!,
     post: Post!
 }
-
