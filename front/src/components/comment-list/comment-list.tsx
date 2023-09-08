@@ -1,9 +1,10 @@
 import React from 'react';
 import CommentComponent from '../comment/comment';
-import { useCommentsContext } from '@/app/providers/comments-provider';
+import { useCommentsContext } from '@/providers/comments-provider';
 
 const CommentList = () => {
   const comments = useCommentsContext();
+
   return (
     <div>
       <h3>Comments:</h3>

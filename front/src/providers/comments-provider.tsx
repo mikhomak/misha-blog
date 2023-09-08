@@ -17,7 +17,6 @@ export function useCommentsUpdateContext() {
 
 export function CommentsProvider({ children, comments }: React.PropsWithChildren & { comments: Comment[] }) {
     const [postComments, setPostComments] = useState(comments);
-
     return (
         <CommentsContext.Provider value={postComments}>
             <CommentsUpdateContetx.Provider value={setPostComments}>

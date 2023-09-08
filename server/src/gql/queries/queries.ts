@@ -1,23 +1,24 @@
-import { QueryResolvers } from '../../__generated__/resolver-types';
-import { COMMENT_EXAMPLE, Posts } from '../../mock_data';
-
-
+import { CommentModel, PostModel } from '@prisma/client';
+import { Comment, Post, QueryResolvers } from '../../__generated__/resolver-types';
 
 const queries: QueryResolvers = {
-    allPosts: () => {
-        return Posts;
+    allPosts: async (_, __, { dataSources }) => {
+        return (await dataSources.prisma.postModel.findMany()).map((postModel) => populatePost(postModel));
     },
-    post: (_, params, __) => {
-        return {
-            id: params.id,
-            title: 'wow new post',
-            date: '29/04/2023',
-            text: 'Loreium *hulorium*',
-            amountOfLikes: 0,
-            amountOfComments: 0,
-            comments: [COMMENT_EXAMPLE, COMMENT_EXAMPLE]
-        }
+
+    post: async (_, params, { dataSources }) => {
+        const PostModel: PostModel = await dataSources.postModelsDataSource.findPostModelById(params.id);
+        return populatePost(PostModel);
     }
 };
+
+export function populatePost(postModel: PostModel): Post {
+    return {
+        ...postModel,
+        createdAt: postModel.createdAt.toDateString(),
+        text: postModel.content,
+    };;
+};
+
 
 export default queries;

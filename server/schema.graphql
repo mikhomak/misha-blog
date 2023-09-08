@@ -5,34 +5,37 @@ type Query{
 }
 
 type Mutation{
-    addComment(commentInput: CommentInput): [Comment!]
+    addComment(commentInput: CommentInput): CommentCreatedResponse!
+}
+
+type CommentCreatedResponse{
+    comments: [Comment!]
 }
 
 input CommentInput {
     author: String!,
-    date: String!,
     text: String!,
     postId: String!
 }
 
-interface Node{
+interface Node {
     id: ID!
 }
 
-type Post implements Node{
+type Post implements Node {
     id: ID!,
     title: String!,
-    date: String!,
+    createdAt: String!,
     text: String!,
     comments: [Comment!],
-    amountOfLikes: Int!,
-    amountOfComments: Int!
+    amountOfLikes: Int,
+    amountOfComments: Int
 }
 
-type Comment implements Node{
+type Comment implements Node {
     id: ID!,
     author: String!,
-    date: String!,
+    createdAt: String,
     text: String!,
     post: Post!
 }

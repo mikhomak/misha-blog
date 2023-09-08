@@ -6,7 +6,7 @@
   "scripts": {
     "gql-generate": "graphql-codegen --config codegen.ts",
     "compile": "npm run gql-generate && tsc",
-    "start-no-compile" : " node --es-module-specifier-resolution=node ./dist/src/index.js",
+    "start-no-compile": " node --es-module-specifier-resolution=node ./dist/src/index.js",
     "start": "npm run compile && npm run start-no-compile"
   },
   "keywords": [],
@@ -17,7 +17,10 @@
     "@apollo/server": "^4.9.3",
     "@graphql-tools/graphql-file-loader": "^8.0.0",
     "@graphql-tools/load": "^8.0.0",
-    "graphql": "^16.8.0"
+    "@prisma/client": "^5.2.0",
+    "dataloader": "^2.2.2",
+    "graphql": "^16.8.0",
+    "prisma": "^5.2.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "5.0.0",

@@ -6,7 +6,7 @@ const CommentComponent = ({comment} : {comment : Comment}) => {
     <div className='my-2'>
       <p className='flex flex-col'>
         <span>{comment.author}</span>
-        <span className='text-xs my-2'>{comment.date}</span>
+        <span className='text-xs my-2'>{comment.createdAt}</span>
       </p>
       <p>{comment.text}</p>
       <hr/>

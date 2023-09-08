@@ -1,4 +1,4 @@
-import { useCommentsUpdateContext } from '@/app/providers/comments-provider';
+import { useCommentsUpdateContext } from '@/providers/comments-provider';
 import { gql } from '@apollo/client'
 import { useMutation } from '@apollo/client';
 import React, { useContext, useEffect } from 'react';
@@ -6,22 +6,27 @@ import React, { useContext, useEffect } from 'react';
 
 const ADD_COMMENT = gql`mutation AddComment($commentInput: CommentInput) {
   addComment(commentInput: $commentInput) {
-    author
-    date
-    text
+    comments{
+      author
+      createdAt
+      text
+    }
   }
 }`
 
-const CommentForm = () => {
+const CommentForm = ({ postId }: { postId: string }) => {
   const commentsUdapte = useCommentsUpdateContext();
-
-
-  const [addComment, { data }] = useMutation(ADD_COMMENT, {
+  console.log(postId)
+  const [addComment, { data,loading }] = useMutation(ADD_COMMENT, {
     onCompleted: (data) => {
-      console.log(data.addComment);
-      commentsUdapte(data.addComment);
+      console.log(data.addComment.comments);
+      commentsUdapte(data.addComment.comments);
     }
   });
+
+  if (loading) {
+    return (<>Loading...</>)
+  }
 
 
   return (
@@ -33,8 +38,7 @@ const CommentForm = () => {
           variables: {
             commentInput: {
               author: (e.currentTarget.elements.namedItem('author') as RadioNodeList).value,
-              date: new Date().toString(),
-              postId: "1",
+              postId: postId,
               text: (e.currentTarget.elements.namedItem('text') as RadioNodeList).value
             }
           }

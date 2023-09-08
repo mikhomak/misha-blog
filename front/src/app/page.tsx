@@ -5,10 +5,12 @@ import { Post } from "@/__generated__/graphql";
 
 const postQuery = gql`query GetAllPosts {
   allPosts{
+    id
     title
     text
     amountOfLikes
-    date
+    createdAt
+    amountOfComments
   }
 }
 `
