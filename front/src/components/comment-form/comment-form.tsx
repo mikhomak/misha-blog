@@ -16,10 +16,8 @@ const ADD_COMMENT = gql`mutation AddComment($commentInput: CommentInput) {
 
 const CommentForm = ({ postId }: { postId: string }) => {
   const commentsUdapte = useCommentsUpdateContext();
-  console.log(postId)
   const [addComment, { data,loading }] = useMutation(ADD_COMMENT, {
     onCompleted: (data) => {
-      console.log(data.addComment.comments);
       commentsUdapte(data.addComment.comments);
     }
   });
