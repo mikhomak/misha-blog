@@ -6,10 +6,10 @@
   "scripts": {
     "gql-generate": "graphql-codegen --config codegen.ts",
     "compile": "npm run gql-generate && tsc",
-    "start-no-compile": " node --es-module-specifier-resolution=node ./dist/src/index.js",
+    "start-no-compile": " node --es-module-specifier-resolution=node ./dist/api/index.js",
     "start": "npm run compile && npm run start-no-compile",
     "start-normal": "tsc && npm run start-no-compile",
-    "debug" : "set DEBUG=express:* && npm run start-no-compile"
+    "debug": "set DEBUG=express:* && npm run start-no-compile"
   },
   "keywords": [],
   "author": "mishanya",
@@ -26,6 +26,7 @@
     "express": "^4.18.2",
     "graphql": "^16.8.0",
     "prisma": "^5.2.0",
+    "vercel": "^32.2.5",
     "xss": "^1.0.14"
   },
   "devDependencies": {

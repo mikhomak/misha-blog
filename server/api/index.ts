@@ -1,5 +1,4 @@
 import { ApolloServer } from '@apollo/server';
-import { startStandaloneServer } from '@apollo/server/standalone';
 import { loadSchema } from '@graphql-tools/load';
 import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader"
 import quieres from './gql/queries/queries'
@@ -54,7 +53,7 @@ const prismaClient = new PrismaClient();
 await server.start();
 app.use(
   '/graphql',
-  cors<cors.CorsRequest>({origin: [process.env.front_url]}),
+  cors<cors.CorsRequest>({ origin: [process.env.front_url] }),
   json(),
   expressMiddleware(server, {
     context: async () => {
