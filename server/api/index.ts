@@ -53,7 +53,7 @@ const prismaClient = new PrismaClient();
 await server.start();
 app.use(
   '/graphql',
-  cors<cors.CorsRequest>({ origin: [process.env.front_url] }),
+  cors<cors.CorsRequest>(),
   json(),
   expressMiddleware(server, {
     context: async () => {

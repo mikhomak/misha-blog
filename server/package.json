@@ -9,8 +9,16 @@
     "start-no-compile": " node --es-module-specifier-resolution=node ./dist/api/index.js",
     "start": "npm run compile && npm run start-no-compile",
     "start-normal": "tsc && npm run start-no-compile",
-    "debug": "set DEBUG=express:* && npm run start-no-compile"
+    "debug": "set DEBUG=express:* && npm run start-no-compile",
+    "build-dist": "rimraf dist && tsc",
+    "ts.check": "tsc --project tsconfig.json",
+    "add-build": "git add dist"
   },
+  "pre-commit": [
+    "ts.check",
+    "build-dist",
+    "add-build"
+  ],
   "keywords": [],
   "author": "mishanya",
   "license": "ISC",
