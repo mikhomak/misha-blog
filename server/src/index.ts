@@ -8,6 +8,17 @@ import commentResolver from './gql/type-resolvers/comment-resolver';
 import mutationResolvers from './gql/mutations/mutations';
 import { PrismaClient } from '@prisma/client'
 import { PostModelsDataSource } from './gql/data-loaders/post-data-loader';
+import express from 'express';
+import http from 'http';
+import { expressMiddleware } from '@apollo/server/express4';
+import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
+import cors from 'cors';
+import pkg from 'body-parser';
+import { sanitazedString } from './gql/types/sanitazed-string';
+const { json } = pkg;
+
+const app = express();
+const httpServer = http.createServer(app);
 
 const typeDefs = await loadSchema('schema.graphql', { loaders: [new GraphQLFileLoader()] });
 
@@ -19,6 +30,8 @@ const resolvers = {
 
 
   Mutation: mutationResolvers,
+
+  SanitazedString: sanitazedString,
 };
 
 export interface MishaBlogServerContext {
@@ -31,20 +44,29 @@ export interface MishaBlogServerContext {
 const server = new ApolloServer<MishaBlogServerContext>({
   typeDefs,
   resolvers,
+  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
+
+server.executeOperation
 
 const prismaClient = new PrismaClient();
 
-const { url } = await startStandaloneServer(server, {
-  context: async () => {
-    return {
-      dataSources: {
-        prisma: prismaClient,
-        postModelsDataSource: new PostModelsDataSource(prismaClient)
+await server.start();
+app.use(
+  '/graphql',
+  cors<cors.CorsRequest>({origin: [process.env.front_url]}),
+  json(),
+  expressMiddleware(server, {
+    context: async () => {
+      return {
+        dataSources: {
+          prisma: prismaClient,
+          postModelsDataSource: new PostModelsDataSource(prismaClient)
+        }
       }
-    }
-  },
-  listen: { port: 4000 },
-});
+    },
+  }),
+);
 
-console.log(`Server started at ${url}! Enjoy you slut`)
+await new Promise<void>((resolve) => httpServer.listen({ port: 4000 }, resolve));
+console.log(`🚀 Server ready at :4000/graphql`);

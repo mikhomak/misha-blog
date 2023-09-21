@@ -3,6 +3,7 @@ CREATE TABLE "PostModel" (
     "id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "title" VARCHAR(255) NOT NULL,
+    "shortText" TEXT,
     "content" TEXT,
     "amountOfLikes" INTEGER NOT NULL DEFAULT 0,
 

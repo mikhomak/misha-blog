@@ -16,7 +16,7 @@ const Likes = ({ amountOfLikes, postId }: { amountOfLikes: number, postId: strin
     }
   })
   return (
-    <button onClick={() => likePost()} disabled={data}>{data === undefined? amountOfLikes : data.like.likes} likes</button>
+    <button onClick={() => likePost()} disabled={data} className={data !== undefined ? 'text-pink-400' : ''}>{data === undefined? amountOfLikes : data.like.likes} likes</button>
   );
 };
 

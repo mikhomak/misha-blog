@@ -11,6 +11,7 @@ model PostModel {
   id            String         @id @default(uuid())
   createdAt     DateTime       @default(now())
   title         String         @db.VarChar(255)
+  shortText     String?
   content       String?
   amountOfLikes Int            @default(0)
   comments      CommentModel[]

@@ -10,7 +10,8 @@ import {
 
 function makeClient() {
     const httpLink = new HttpLink({
-        uri: 'http://localhost:4000'
+        uri: process.env.NEXT_PUBLIC_APOLLO_SERVER_URI,
+        fetchOptions: {cache: 'no-store'}
     });
 
     return new NextSSRApolloClient({

@@ -40,7 +40,9 @@ export default async function Blog({ params }: { params: { id: string } }) {
     const post = data.post as Post;
     return (
       <div className="max-w-screen-lg my-4">
-        <ReactMarkdown>{post.text}</ReactMarkdown>
+        <h1>{post.title}</h1>
+        <i>{post.createdAt}</i>
+        <div className="my-8" dangerouslySetInnerHTML={{__html:post.text}}/>
         <hr />
         <Likes amountOfLikes={post.amountOfLikes || 0} postId={post.id}/>
         <CommentArea comments={post.comments || []} postId={post.id} />

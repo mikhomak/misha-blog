@@ -1,4 +1,5 @@
 import { Comment } from '@/__generated__/graphql';
+import moment from 'moment';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
@@ -6,10 +7,10 @@ const CommentComponent = ({ comment }: { comment: Comment }) => {
   return (
     <div className='my-2'>
       <p className='flex flex-col'>
-        <span>{comment.author}</span>
-        <span className='text-xs my-2'>{comment.createdAt}</span>
+        <b>{comment.author}</b>
+        <i className='text-xs my-2'>{moment(comment.createdAt).format("DD MM YYYY hh:mm:ss")}</i>
       </p>
-      <p><ReactMarkdown>{comment.text}</ReactMarkdown></p>
+      <ReactMarkdown>{comment.text}</ReactMarkdown>
       <hr />
     </div>
   );

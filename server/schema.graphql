@@ -18,9 +18,9 @@ type LikeResponse{
 }
 
 input CommentInput {
-    author: String!,
-    text: String!,
-    postId: String!
+    author: SanitazedString!
+    text: SanitazedString!
+    postId: SanitazedString!
 }
 
 interface Node {
@@ -31,6 +31,7 @@ type Post implements Node {
     id: ID!,
     title: String!,
     createdAt: String!,
+    shortText: String!,
     text: String!,
     comments: [Comment!],
     amountOfLikes: Int,
@@ -44,3 +45,5 @@ type Comment implements Node {
     text: String!,
     post: Post!
 }
+
+scalar SanitazedString

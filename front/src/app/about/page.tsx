@@ -1,11 +1,8 @@
-import CommentForm from "@/components/comment-form/comment-form";
-import CommentList from "@/components/comment-list/comment-list";
-import Likes from "@/components/likes/likes";
-
 export default function About() {
   return (
-    <div>
-      What the hell ya want brother
+    <div className="max-w-screen-md m-auto">
+      Hi I'm Misha<br/>
+      I do stuff and sometimes write about it <br/>
     </div>
   )
 }

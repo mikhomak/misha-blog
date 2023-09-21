@@ -24,7 +24,7 @@ export default function RootLayout({
           <div className='flex items-center justify-center flex-col my-20'>
             <Info />
             <Navbar />
-            <div className='max-w-screen-lg my-4'>
+            <div className='max-w-screen-lg my-4 min-w-full lg:min-w-[50%]'>
               {children}
             </div>
           </div>

@@ -6,6 +6,7 @@ import { Post } from "@/__generated__/graphql";
 const postQuery = gql`query GetAllPosts {
   allPosts{
     id
+    shortText
     title
     text
     amountOfLikes
@@ -16,13 +17,12 @@ const postQuery = gql`query GetAllPosts {
 `
 
 export default async function Home() {
-  const client = getClient();
-  const { data } = await client.query({ query: postQuery });
+  const { data } = await getClient().query({ query: postQuery});
   const posts = data.allPosts as [Post];
   return (
     <main>
       {posts.map((post) =>
-        <BlogShort post={post} />
+        <BlogShort post={post} key={post.id}/>
       )}
     </main>
   )

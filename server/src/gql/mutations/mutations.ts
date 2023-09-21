@@ -1,18 +1,21 @@
+import xss from 'xss';
 import { MutationResolvers } from '../../__generated__/resolver-types';
 import { populatePost } from '../queries/queries';
 import { populateComment } from '../type-resolvers/post-resolver';
-
 
 const mutationResolvers: MutationResolvers = {
     addComment: async (_, args, { dataSources }) => {
         const commentInput = args.commentInput;
 
+        const data = {
+            text: xss((args.commentInput.text as string).substring(0, 500)),
+            author: xss((args.commentInput.author as string).substring(0, 50)),
+            postId: xss((args.commentInput.postId as string).substring(0, 50)),
+        }
+
         const comment = await dataSources.prisma.commentModel.create(
             {
-                data:
-                {
-                    ...commentInput,
-                },
+                data,
                 include:
                 {
                     Post:

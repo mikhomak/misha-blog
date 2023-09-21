@@ -44,8 +44,8 @@ const CommentForm = ({ postId }: { postId: string }) => {
       }
       }>
         <div className='flex flex-col'>
-          <input type='text' name='author' className='max-w-min' placeholder='Your name' />
-          <textarea name='text' placeholder='Damn bruh this shit is fire no cap' className='my-2' />
+          <input type='text' name='author' className='max-w-min' placeholder='Your name(max 50 chars)' max={50}/>
+          <textarea name='text' placeholder='Damn bruh this shit is fire no cap(max 500 char)... I also support markdown' className='my-2' maxLength={500} />
           <button className='my-2 max-w-min' >Submit</button>
         </div>
       </form>
