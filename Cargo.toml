@@ -1,0 +1,21 @@
+[package]
+name = "misha-blog"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+diesel = "2.1.3"
+
+[dependencies.rocket]
+version = "=0.5.0-rc.3"
+
+[dependencies.rocket_contrib]
+version = "0.4.11"
+default-features = false
+features = ["handlebars_templates", "tera_templates"]
+
+[dependencies.rocket_sync_db_pools]
+version = "=0.1.0-rc.3"
+features = ["diesel_postgres_pool"]
