@@ -1,16 +1,14 @@
+
 #[macro_use]
 extern crate rocket;
 
-use rocket_contrib::templates::Template;
+mod controller;
 
-#[get("/")]
-fn index() -> Template {
-    Template::render("index", context { name: "hello" })
-}
+use rocket_dyn_templates::{Template};
 
 #[launch]
 fn rocket() -> _ {
     rocket::build()
         .attach(Template::fairing())
-        .mount("/", routes![index])
+        .mount("/", routes![controller::index, controller::post_page])
 }
