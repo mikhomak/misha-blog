@@ -1,0 +1,2 @@
+[default.databases.misha-blog]
+url = "postgres://misha:123456@localhost:6543/misha-blog"

@@ -5,7 +5,7 @@ diesel::table! {
         id -> Int4,
         author -> Varchar,
         content -> Text,
-        creation_time -> Time,
+        creation_time -> Date,
         post_id -> Int4,
     }
 }
@@ -14,12 +14,10 @@ diesel::table! {
     posts (id) {
         id -> Int4,
         title -> Varchar,
-        content -> Text,
         short_content -> Text,
-        #[max_length = 1]
-        allow_comments -> Nullable<Bit>,
-        amount_of_likes -> Numeric,
-        creation_time -> Time,
+        allow_comments -> Bool,
+        amount_of_likes -> Int4,
+        creation_time -> Date,
         views -> Int4,
     }
 }
