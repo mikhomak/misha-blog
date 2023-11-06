@@ -1,0 +1,9 @@
+{{~> layouts/main~}}
+<h1>hello {{ name }} from blog</h1>
+post title - {{ post.title }} <br/>
+post comment allowed - {{ post.allow_comments }}<br/>
+are comments allowed - {{ are_comments_allowed }}<br/>
+<h3>comments</h3>
+{{#each post.comments}}
+    {{author}}<br/>
+{{/each}}

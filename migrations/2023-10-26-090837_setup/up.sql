@@ -1,12 +1,12 @@
 CREATE TABLE siteconfigurations
 (
     id SERIAL PRIMARY KEY,
-    allow_site_comments BIT NOT NULL
+    allow_site_comments BOOL NOT NULL
 );
 
 CREATE TABLE posts
 (
-    id SERIAL PRIMARY KEY,
+    id VARCHAR PRIMARY KEY,
     title VARCHAR NOT NULL,
     short_content TEXT NOT NULL,
     allow_comments BOOL NOT NULL,
@@ -21,5 +21,5 @@ CREATE TABLE comments
     author VARCHAR NOT NULL,
     content TEXT NOT NULL,
     creation_time DATE NOT NULL,
-    post_id INTEGER NOT NULL REFERENCES posts(id)
+    post_id VARCHAR NOT NULL REFERENCES posts(id)
 );

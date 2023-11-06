@@ -1,2 +1,5 @@
+[debug]
+address = "127.0.0.1"
+port = 9800
 [default.databases.misha-blog]
 url = "postgres://misha:123456@localhost:6543/misha-blog"

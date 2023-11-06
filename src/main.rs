@@ -1,7 +1,6 @@
 
 #[macro_use]
 extern crate rocket;
-
 mod controller;
 
 use rocket_dyn_templates::{Template};

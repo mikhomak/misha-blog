@@ -6,13 +6,13 @@ diesel::table! {
         author -> Varchar,
         content -> Text,
         creation_time -> Date,
-        post_id -> Int4,
+        post_id -> Varchar,
     }
 }
 
 diesel::table! {
     posts (id) {
-        id -> Int4,
+        id -> Varchar,
         title -> Varchar,
         short_content -> Text,
         allow_comments -> Bool,
@@ -25,8 +25,7 @@ diesel::table! {
 diesel::table! {
     siteconfigurations (id) {
         id -> Int4,
-        #[max_length = 1]
-        allow_site_comments -> Bit,
+        allow_site_comments -> Bool,
     }
 }
 
