@@ -1,6 +1,6 @@
-
 #[macro_use]
 extern crate rocket;
+
 mod controller;
 
 use rocket_dyn_templates::{Template};
@@ -11,5 +11,10 @@ fn rocket() -> _ {
     rocket::build()
         .attach(Template::fairing())
         .attach(PgConnection::fairing())
-        .mount("/", routes![controller::index, controller::post_page])
+        .mount("/", routes![
+            controller::index,
+            controller::post_page,
+            controller::like_post,
+            controller::add_comment
+        ])
 }

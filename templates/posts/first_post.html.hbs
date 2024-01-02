@@ -3,7 +3,21 @@
 post title - {{ post.title }} <br/>
 post comment allowed - {{ post.allow_comments }}<br/>
 are comments allowed - {{ are_comments_allowed }}<br/>
-<h3>comments</h3>
-{{#each post.comments}}
-    {{author}}<br/>
-{{/each}}
+likes - <span id="likes">{{ post.amount_of_likes }}</span><br/>
+
+<button id="submit_like">Like</button>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    $('#submit_like').click(function() {
+        $.ajax({
+            url: '/posts/{{post.id}}/like',
+            type: 'POST',
+            success: function(new_likes) {
+                document.getElementById('likes').innerHTML = new_likes;
+            }
+        });
+    });
+</script>
+
+{{~> posts/tag/comment_section~}}

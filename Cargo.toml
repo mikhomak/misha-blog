@@ -10,6 +10,7 @@ diesel = { version = "2.1.3", features = ["chrono"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 chrono = { version = "0.4", features = ["serde"] }
+log = "0.4.20"
 
 [dependencies.rocket]
 version = "=0.5.0-rc.4"

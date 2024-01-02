@@ -1,5 +1,6 @@
 use diesel::{Queryable};
 use chrono::NaiveDate;
+use rocket::serde::Deserialize;
 use serde::Serialize;
 
 #[derive(Serialize, Queryable, Selectable, Identifiable)]
@@ -26,6 +27,18 @@ pub struct Comment {
     pub creation_time: NaiveDate,
     pub post_id: String,
 }
+
+#[derive(Deserialize, Insertable, Debug)]
+#[serde(crate = "rocket::serde")]
+#[diesel(table_name = crate::schema::comments)]
+#[diesel(check_for_backend(diesel::pg::Pg))]
+pub struct NewComment {
+    pub author: String,
+    pub content: String,
+    pub creation_time: NaiveDate,
+    pub post_id: String
+}
+
 
 #[derive(Serialize, Queryable, Selectable, Identifiable)]
 #[diesel(table_name = crate::schema::siteconfigurations)]
