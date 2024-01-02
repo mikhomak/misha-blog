@@ -98,9 +98,7 @@ pub async fn add_comment(new_comment: NewComment, connection: &PgConnection) -> 
     }).await;
 
     match r_new_comment {
-        Ok(_) => {
-            Ok(())
-        }
+        Ok(_) => Ok(()),
         Err(_) => Err(PostNotFoundError::new(&owned_post_id))
     }
 }

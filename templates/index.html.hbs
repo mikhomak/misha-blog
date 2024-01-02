@@ -1,5 +1,7 @@
 {{~> layouts/main~}}
-<h1>hello {{ name }} hehe</h1>
-{{#each posts}}
-    <a href="/posts/{{id}}">{{title}}</a>
-{{/each}}
+<div style="width: 60vmax">
+    <h3>Latest posts:</h3>
+    {{#each posts}}
+        {{~> posts/tag/post_preview post=this~}}
+    {{/each}}
+</div>

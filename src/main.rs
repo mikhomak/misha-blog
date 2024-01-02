@@ -2,6 +2,7 @@
 extern crate rocket;
 
 mod controller;
+mod error_catcher;
 
 use rocket_dyn_templates::{Template};
 use misha_blog::PgConnection;
@@ -15,6 +16,10 @@ fn rocket() -> _ {
             controller::index,
             controller::post_page,
             controller::like_post,
-            controller::add_comment
+            controller::add_comment,
+            controller::about,
+            controller::contact
         ])
+        .register("/",
+                  catchers![error_catcher::internal_server_error])
 }

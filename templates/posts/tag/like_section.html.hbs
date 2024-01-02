@@ -1,0 +1,16 @@
+likes - <span id="likes">{{ post.amount_of_likes }}</span><br/>
+
+<button id="submit_like">Like</button>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    $('#submit_like').click(function() {
+        $.ajax({
+            url: '/posts/{{post.id}}/like',
+            type: 'POST',
+            success: function(new_likes) {
+                document.getElementById('likes').innerHTML = new_likes;
+            }
+        });
+    });
+</script>

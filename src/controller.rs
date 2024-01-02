@@ -26,6 +26,16 @@ pub async fn index(connection: PgConnection) -> Template {
     })
 }
 
+#[get("/about")]
+pub fn about() -> Template {
+    Template::render("about", context! {})
+}
+
+#[get("/contact")]
+pub fn contact() -> Template {
+    Template::render("contact", context! {})
+}
+
 #[get("/posts/<post_id>")]
 pub async fn post_page(post_id: &str, connection: PgConnection) -> Template {
     let are_comments_allowed: bool = post_services::are_comments_allowed(&connection, post_id)
@@ -76,7 +86,7 @@ pub async fn add_comment(post_id: &str, new_comment: Form<NewCommentForm>, conne
         Ok(_) => Redirect::to(uri!(post_page(post_id))),
         Err(error) => {
             error!("While posting a comment to post {post_id} there was an error {error}");
-            Redirect::to(uri!("505"))
+            Redirect::to(uri!("500"))
         }
     }
 }
