@@ -21,5 +21,7 @@ fn rocket() -> _ {
             controller::contact
         ])
         .register("/",
-                  catchers![error_catcher::internal_server_error])
+                  catchers![error_catcher::internal_server_error,
+                  error_catcher::default_error,
+                  error_catcher::validation_error])
 }

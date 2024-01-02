@@ -59,7 +59,9 @@ pub async fn like_post(post_id: &str, connection: PgConnection) -> String {
 
 #[derive(FromForm)]
 pub struct NewCommentForm {
+    #[field(validate = len(5..20))]
     author: String,
+    #[field(validate = len(5..20))]
     text: String,
 }
 
