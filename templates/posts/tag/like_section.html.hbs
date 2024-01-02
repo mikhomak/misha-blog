@@ -1,16 +1,18 @@
-likes - <span id="likes">{{ post.amount_of_likes }}</span><br/>
+<div>
+    <span>likes - <span id="likes" style="color: tomato">{{ post.amount_of_likes }}</span></span>
+    <button id="submit_like">like</button>
 
-<button id="submit_like">Like</button>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script>
-    $('#submit_like').click(function() {
-        $.ajax({
-            url: '/posts/{{post.id}}/like',
-            type: 'POST',
-            success: function(new_likes) {
-                document.getElementById('likes').innerHTML = new_likes;
-            }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $('#submit_like').click(function () {
+            $.ajax({
+                url: '/posts/{{post.id}}/like',
+                type: 'POST',
+                success: function (new_likes) {
+                    document.getElementById('likes').innerHTML = new_likes;
+                    document.getElementById('submit_like').disabled = true;
+                }
+            });
         });
-    });
-</script>
+    </script>
+</div>

@@ -1,18 +1,41 @@
-<h3>comments</h3>
+<div>
+    <h3>comments</h3>
 
+    <form action="/posts/{{post.id}}/comment" method="post" style="
+        display: flex;
+        flex-direction: column;
+        ">
+        <label style="padding-bottom: 10px">
+            your name:<br/>
+            <input id="author_comment" name="author" type="text" placeholder="Your name...">
+        </label>
+        <label style="padding-bottom: 10px">
+            comment:<br/>
+            <textarea id="text_comment" name="text" placeholder="Your comment..." style="width: 50%"></textarea>
+        </label>
+        <button id="submit_comment" style="width: 15%" disabled>
+            submit
+        </button>
+    </form>
+    <script>
+        document.getElementById("author_comment").addEventListener("keyup", updateSubmitButton);
+        document.getElementById("text_comment").addEventListener("keyup", updateSubmitButton);
+        function updateSubmitButton(){
+            const authorField = document.getElementById('author_comment');
+            const textField = document.getElementById('text_comment');
+            const name = authorField.value;
+            const text = textField.value;
 
-<form action="/posts/{{post.id}}/comment" method="post">
-    <label>
-        <input name="author" type="text">
-    </label>
-    <label>
-        <input name="text" type="text">
-    </label>
-    <input type="submit">
-</form>
+            const submitButton = document.getElementById('submit_comment');
+            submitButton.disabled = !(name === '' || text !== '');
+        }
+    </script>
 
-{{#each post.comments}}
-    {{author}}<br/>
-    {{content}}<br/>
-    {{creation_time}}<br/>
-{{/each}}
+    {{#each post.comments}}
+        <div style="border-bottom: 1px solid slategrey; padding-top: 15px;">
+            author: <i>{{author}}</i><br/>
+            <span style="font-size:16px">date: {{creation_time}}</span>
+            <p>{{content}}</p>
+        </div>
+    {{/each}}
+</div>

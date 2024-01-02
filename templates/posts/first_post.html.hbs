@@ -1,8 +1,10 @@
 {{~> layouts/main~}}
-<h1>hello {{ name }} from blog</h1>
-post title - {{ post.title }} <br/>
-post comment allowed - {{ post.allow_comments }}<br/>
-are comments allowed - {{ are_comments_allowed }}<br/>
+<div>
+    <h1>hello {{ name }} from blog</h1>
+    post title - {{ post.title }} <br/>
+    post comment allowed - {{ post.allow_comments }}<br/>
+    are comments allowed - {{ are_comments_allowed }}<br/>
 
-{{~> posts/tag/like_section~}}
-{{~> posts/tag/comment_section~}}
+    {{~> posts/tag/like_section~}}
+    {{~> posts/tag/comment_section~}}
+</div>
