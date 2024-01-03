@@ -1,9 +1,10 @@
-<div>
+<div style="padding-top: 10px;">
     <h3>comments</h3>
 
     <form action="/posts/{{post.id}}/comment" method="post" style="
         display: flex;
         flex-direction: column;
+        padding-bottom: 20px;
         ">
         <label style="padding-bottom: 10px">
             your name:<br/>
@@ -11,7 +12,10 @@
         </label>
         <label style="padding-bottom: 10px">
             comment:<br/>
-            <textarea id="text_comment" name="text" placeholder="Your comment... 600 char max..." style="width: 90%"></textarea>
+            <textarea id="text_comment" name="text" placeholder="Your comment... 600 char max..."
+                      style="width: 90%;
+                      white-space: pre-wrap;"
+            ></textarea>
         </label>
         <button id="submit_comment" style="width:fit-content" disabled>
             submit
@@ -20,14 +24,15 @@
     <script>
         document.getElementById("author_comment").addEventListener("keyup", updateSubmitButton);
         document.getElementById("text_comment").addEventListener("keyup", updateSubmitButton);
-        function updateSubmitButton(){
+
+        function updateSubmitButton() {
             const authorField = document.getElementById('author_comment');
             const textField = document.getElementById('text_comment');
             const name = authorField.value;
             const text = textField.value;
 
             const submitButton = document.getElementById('submit_comment');
-            submitButton.disabled = !(name === '' || text !== '');
+            submitButton.disabled = name === '' || text === '' || name.length < 2 || text.length < 3;
         }
     </script>
 
@@ -35,7 +40,7 @@
         <div style="border-bottom: 1px solid slategrey; padding-top: 15px;">
             author: <i>{{author}}</i><br/>
             <span style="font-size:16px">date: {{creation_time}}</span>
-            <p>{{content}}</p>
+            <p style="white-space: pre-line">{{content}}</p>
         </div>
     {{/each}}
 </div>

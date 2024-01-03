@@ -4,7 +4,7 @@ use rocket_dyn_templates::{Template, context};
 use misha_blog::PgConnection;
 use diesel::query_dsl::RunQueryDsl;
 use diesel::QueryResult;
-use rocket::form::Form;
+use rocket::form::{Form};
 use rocket::response::Redirect;
 use misha_blog::models::{NewComment, PostWithComments};
 use misha_blog::schema::posts::dsl::posts;
@@ -22,18 +22,23 @@ pub async fn index(connection: PgConnection) -> Template {
         Err(_error) => vec![]
     };
     Template::render("index", context! {
-        posts: found_posts
+        posts: found_posts,
+        page_title: "Homepage | Misha blog"
     })
 }
 
 #[get("/about")]
 pub fn about() -> Template {
-    Template::render("about", context! {})
+    Template::render("about", context! {
+        page_title: "Homepage | Misha blog"
+    })
 }
 
 #[get("/contact")]
 pub fn contact() -> Template {
-    Template::render("contact", context! {})
+    Template::render("contact", context! {
+        page_title: "Homepage | Misha blog"
+    })
 }
 
 #[get("/posts/<post_id>")]
@@ -59,9 +64,9 @@ pub async fn like_post(post_id: &str, connection: PgConnection) -> String {
 
 #[derive(FromForm)]
 pub struct NewCommentForm {
-    #[field(validate = len(5..20))]
+    #[field(validate = len(2..40))]
     author: String,
-    #[field(validate = len(5..20))]
+    #[field(validate = len(2..600))]
     text: String,
 }
 
@@ -98,14 +103,18 @@ fn construct_post_page(post_id: &str,
                        are_comments_allowed: bool) -> Template {
     match r_post_with_comments {
         Ok(post_with_comments) => {
+            let post_title: String = post_with_comments.post.title.clone();
             Template::render(format!("posts/{post_id}"), context! {
                 post: post_with_comments,
+                page_title: format!("{0} | Misha blog", post_title),
                 are_comments_allowed: are_comments_allowed,
             })
         }
         Err(error) => {
             error!("There was an exception while constructing the {post_id} post page. Error - {error}");
-            Template::render("404", context! {})
+            Template::render("404", context! {
+                page_title: "Not found | Misha blog"
+            })
         }
     }
 }
