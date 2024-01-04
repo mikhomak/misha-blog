@@ -1,0 +1,29 @@
+.main{
+    max-width: 60vmax;
+    margin: 0 100px 0 100px;
+}
+
+ol {
+    padding-left: 30px;
+}
+
+img {
+    display: block;
+    border: 1px solid;
+    margin: 20px auto 10px auto;
+}
+
+pre {
+    background: antiquewhite;
+    border: 1px solid;
+    margin: 10px auto auto;
+    width: fit-content;
+    max-width: 50vmax;
+    overflow: auto;
+    padding: 10px;
+}
+
+code {
+    padding: 3px;
+    background: lightpink;
+}

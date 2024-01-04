@@ -1,0 +1,38 @@
+{{~> layouts/main~}}
+<div class="main">
+    <h1>{{ post.title }} </h1>
+    <p><i>Date: {{post.creation_time}}</i></p>
+
+    <p>
+        Sometimes we can run into an issue where we need to remove a column in database in hybris.
+    </p>
+    <p>
+        To do so in persistence layer it's relatively simple - just go to the BO and delete an attribute(or items.xml,
+        or via groovy or whatever). <br/>
+        But the problem comes when we run into the issue of deploying an item with the wrong deployment table and now
+        the attribute exists in another table. It can happen due to different reason: human error, migration issues,
+        etc...
+    </p>
+    <p>
+        To fix this is actually not that difficult.
+        Let's take as an example the attribute <code>EAN</code> of the product
+        The steps are the following:
+    </p>
+    <ol>
+        <li>Find a column name of the attribute. Usually it will be something like <code>p_attributename</code>, in our case
+        it's <code>p_ean</code>. You can find this information in hac, executing query as <pre>select * from products</pre>
+        <img src="/remove_column_in_db_in_hybris/ean_column.png" style="width: 40vmax;"/>
+        </li>
+        <li>Go to the groovy script execution</li>
+        <li>
+            Execute the following script, replacing your attribute name:
+            <pre>de.hybris.platform.core.Registry.getCurrentTenant()
+.getDataSource()
+.getConnection()
+.createStatement()
+.execute("  DELETE FROM products WHERE  TypePKString  = 'p_ean'");</pre>
+        </li>
+    </ol>
+    {{~> posts/tag/like_section~}}
+    {{~> posts/tag/comment_section~}}
+</div>
